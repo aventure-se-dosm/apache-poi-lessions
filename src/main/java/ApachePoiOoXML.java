@@ -1,26 +1,26 @@
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class Andr {
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ApachePoiOoXML {
 	public static void main(String args[]) throws IOException {
 		// Create an object of File class to open xlsx file
-		File file = new File("E:\\TestData\\TestData.xls");
+		File file = new File(".\\target\\workbooks\\TestData.xlsx");
 
 		// Create an object of FileInputStream class to read excel file
-		FileInputStream inputStream = new FileInputStream(file);
+		// FileInputStream inputStream = new FileInputStream(file);
 
 		// creating workbook instance that refers to .xls file
-		HSSFWorkbook wb = new HSSFWorkbook(inputStream);
+		XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(file));
 
 		// creating a Sheet object
-		HSSFSheet sheet = wb.getSheet("STUDENT_DATA");
+		XSSFSheet sheet = wb.getSheet("STUDENT_DATA");
 
 		// get all rows in the sheet
 		int rowCount = sheet.getLastRowNum() - sheet.getFirstRowNum();
@@ -35,12 +35,14 @@ public class Andr {
 			System.out.println("Row" + i + " data is :");
 
 			for (int j = 0; j < cellcount; j++) {
-				
-				HSSFCell cell = sheet.getRow(i).getCell(j);
-				cell.setCellType(CellType.STRING);
-				System.out.println(cell.getStringCellValue());
+			
+						XSSFCell c = sheet.getRow(i).getCell(j);
+						c.setCellType(CellType.STRING);
+						System.out.println(c.getStringCellValue());
 			}
-
+			System.out.println();
 		}
+		wb.close();
+
 	}
 }
